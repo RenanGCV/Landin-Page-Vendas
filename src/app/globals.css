@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 30, 41, 59;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-full 
+           transform transition-all duration-300 hover:scale-105 hover:shadow-lg 
+           hover:shadow-primary/50;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary-dark text-dark font-bold py-4 px-8 rounded-full 
+           transform transition-all duration-300 hover:scale-105 hover:shadow-lg 
+           hover:shadow-secondary/50;
+  }
+
+  .section-padding {
+    @apply py-20 md:py-32;
+  }
+
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+
+  .card {
+    @apply bg-dark-light/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl hover:shadow-2xl 
+           transition-all duration-300 hover:scale-105 border border-white/5;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent 
+           animate-gradient-x;
+  }
+
+  .floating {
+    @apply animate-float;
+  }
+} 
