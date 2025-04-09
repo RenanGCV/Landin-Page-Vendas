@@ -24,10 +24,11 @@ const testimonials = [
 ];
 
 const containerVariants = {
-  hidden: {},
+  hidden: { opacity: 0 },
   visible: {
+    opacity: 1,
     transition: {
-      staggerChildren: 0.3
+      staggerChildren: 0.1
     }
   }
 };
@@ -35,17 +36,13 @@ const containerVariants = {
 const cardVariants = {
   hidden: { 
     opacity: 0,
-    y: 30,
-    scale: 0.9
+    y: 20
   },
   visible: {
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 15
+      duration: 0.3
     }
   }
 };
@@ -83,10 +80,10 @@ export default function Testimonials() {
 
       <div className="container-custom relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true, margin: "-100px" }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-50px" }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
@@ -101,7 +98,7 @@ export default function Testimonials() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           {testimonials.map((testimonial, index) => (
@@ -122,11 +119,7 @@ export default function Testimonials() {
                   "{testimonial.feedback}"
                 </p>
                 
-                <motion.div 
-                  className="flex items-center gap-4"
-                  whileHover={{ x: 10 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
+                <div className="flex items-center gap-4">
                   <div className="relative w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-primary to-secondary p-[2px]">
                     <div className="relative w-full h-full rounded-full overflow-hidden">
                       <Image
@@ -142,7 +135,7 @@ export default function Testimonials() {
                     <p className="font-bold text-white">{testimonial.name}</p>
                     <p className="text-sm text-gray-400">{testimonial.role}</p>
                   </div>
-                </motion.div>
+                </div>
               </div>
             </motion.div>
           ))}
