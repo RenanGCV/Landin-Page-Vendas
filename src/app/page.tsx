@@ -10,9 +10,12 @@ import { PortfolioShowcase } from '../components/PortfolioShowcase';
 import PricingPlans from '../components/PricingPlans';
 import dynamic from 'next/dynamic';
 
-const LottieWrapper = dynamic(() => import('../components/LottieWrapper'), {
+// Importando o componente Lottie com SSR desabilitado
+const LottieComponent = dynamic(() => import('../components/LottieAnimation'), {
   ssr: false,
-  loading: () => <div className="w-full h-full bg-dark-light/20 rounded-lg animate-pulse" />
+  loading: () => (
+    <div className="w-[400px] h-[400px] bg-dark-light/20 rounded-lg animate-pulse" />
+  ),
 });
 
 const WHATSAPP_LINK = 'https://wa.me/5521999880830';
@@ -80,7 +83,7 @@ export default function Home() {
             className="hidden md:block w-1/3 relative"
           >
             <div className="w-[400px] h-[400px] relative mx-auto">
-              <LottieWrapper />
+              <LottieComponent />
             </div>
           </motion.div>
         </div>
