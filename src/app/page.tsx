@@ -7,6 +7,13 @@ import Testimonials from '../components/Testimonials';
 import FinalCallToAction from '../components/FinalCallToAction';
 import FloatingWhatsApp from '../components/FloatingWhatsApp';
 import { PortfolioShowcase } from '../components/PortfolioShowcase';
+import PricingPlans from '../components/PricingPlans';
+import dynamic from 'next/dynamic';
+
+const LottieWrapper = dynamic(() => import('../components/LottieWrapper'), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-dark-light/20 rounded-lg animate-pulse" />
+});
 
 const WHATSAPP_LINK = 'https://wa.me/5521999880830';
 
@@ -18,7 +25,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark-light to-dark-lighter opacity-90" />
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container-custom relative z-10 flex items-center justify-between">
           <div className="max-w-4xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -65,6 +72,17 @@ export default function Home() {
               </div>
             </motion.div>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="hidden md:block w-1/3 relative"
+          >
+            <div className="w-[400px] h-[400px] relative mx-auto">
+              <LottieWrapper />
+            </div>
+          </motion.div>
         </div>
 
         {/* Floating Elements - Simplified */}
@@ -81,6 +99,16 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <Testimonials />
+
+      {/* Pricing Plans Section */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+      >
+        <PricingPlans />
+      </motion.div>
 
       {/* Final Call to Action Section */}
       <FinalCallToAction />
