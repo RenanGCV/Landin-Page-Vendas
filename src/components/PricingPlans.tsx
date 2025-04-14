@@ -75,31 +75,16 @@ const featureVariants = {
 export default function PricingPlans() {
   const [isLoading, setIsLoading] = useState<string | null>(null);
 
-  const handleCheckout = async (planId: string) => {
-    setIsLoading(planId);
-    try {
-      const stripe = await stripePromise;
-      if (!stripe) throw new Error('Stripe não carregou');
+  const handleCheckout = (url: string) => {
+    window.location.href = url; // Redireciona para o link externo
+  };
 
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ planId }),
-      });
+  const handleEssentialCheckout = () => {
+    handleCheckout('https://buy.stripe.com/5kA8xp2gr6tb17a8wx'); // Link do plano essencial
+  };
 
-      const { sessionId } = await response.json();
-      const { error } = await stripe.redirectToCheckout({ sessionId });
-
-      if (error) {
-        console.error('Erro:', error);
-      }
-    } catch (err) {
-      console.error('Erro ao processar pagamento:', err);
-    } finally {
-      setIsLoading(null);
-    }
+  const handlePremiumCheckout = () => {
+    handleCheckout('https://buy.stripe.com/aEUfZRg7h3gZdTW144'); // Link do plano premium
   };
 
   return (
@@ -178,19 +163,17 @@ export default function PricingPlans() {
               </div>
 
               <motion.button
-                onClick={() => handleCheckout(plan.id)}
-                disabled={isLoading !== null}
+                onClick={plan.id === 'premium' ? handlePremiumCheckout : handleEssentialCheckout}
                 className={`w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-lg font-medium transition-all duration-300 ${
                   plan.isPopular
                     ? 'bg-primary hover:bg-primary-dark text-white'
                     : 'bg-dark-light hover:bg-dark text-white'
-                } ${isLoading === plan.id ? 'opacity-75 cursor-wait' : ''} 
-                  disabled:opacity-50 disabled:cursor-not-allowed`}
+                }`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <FaShoppingCart className="text-xl" />
-                {isLoading === plan.id ? 'Processando...' : plan.cta}
+                {plan.cta}
               </motion.button>
             </motion.div>
           ))}
